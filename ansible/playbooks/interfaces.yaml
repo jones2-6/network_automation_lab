@@ -1,0 +1,73 @@
+
+- name: Configure data-plane interfaces on Cisco IOS routers using Netbox as source of Truth
+  hosts: device_roles_router
+  gather_facts: false
+  connection: network_cli
+
+  vars:
+    netbox_url:     "http://10.0.0.100:8000"
+    netbox_token:  "nbt_0SM00Ct62itA.B9QryWlWd4u2AXl4tEO3sOnF16DDLuQ8Rdt4DbVL"
+
+  tasks:
+    - name: Fetch all IP addresses assigned to {{ inventory_hostname}} from Netbox IPAM API 
+      ansible.builtin.uri:
+        url: "{{ netbox_url }}/api/ipam/ip-addresses/?device={{ inventory_hostname }}&limit=200"
+        method: GET
+        headers:
+          Authorization: "Token {{ netbox_token }}"
+          Content_Type: "application/json"  
+        validate_certs: false
+        return_content: true
+      register: netbox_ips
+      delegate_to: localhost
+
+    - name: Set fact nb_ips from netbox_ips json results
+      ansible.builtin.set_fact:
+        nb_ips: "{{ netbox_ips.json.results }}"
+
+    - name: Debug IP address list by looping over nb_ips showing address and assigned interface name
+      ansible.builtin.debug:
+        msg: "IP: {{ item.address }}  |  Interface: {{ item.assigned_object.name | default('unassigned') }}"
+      loop: "{{ nb_ips }}"
+      loop_control:
+        label: "{{ item.address }}"
+ 
+    - name: Configure IPV4 address on each interface using Netbox IPAM data on Cisco IOS
+      cisco.ios.ios_l3_interfaces:
+        config:
+          - name: "{{ item.assigned_object.name }}"
+            ipv4:
+              - address: "{{ item.address }}"
+        state: merged
+      loop: "{{ nb_ips }}"
+     # loop control:
+       # label: "{{ item.assigned_object.name | default('N/A') }} {{ item.address }}"
+      when:
+        - item.assigned_object is defined
+        - item.assigned_object.name is defined
+        - item.assigned_object.name | lower | regex_search('^gigabitethernet')
+        - item.family.value == 4
+      notify: Save IOS running config to startup config
+
+    - name: Set Interface description and bring up data-plane interfaces using NetBox IPAM data on Cisco IOS
+      cisco.ios.ios_interfaces:
+        config:
+          - name:        "{{ item.assigned_object.name }}"
+            description: "{{ item.assigned_object.description | default(item.assigned_object.name) }}"
+            enabled:     true
+        state: merged
+      loop: "{{ nb_ips }}"
+     # loop control:
+       # label: "{{ item.assigned_object.name | default ('N/A') }]"
+      when:
+        - item.assigned_object is defined
+        - item.assigned_object.name is defined
+        - item.assigned_object.name | lower | regex_search('^gigabitethernet')
+        - item.family.value == 4
+      notify: Save IOS running config to startup config 
+  
+  handlers:
+    - name: Save IOS running config to startup config
+      cisco.ios.ios_command:
+        commands: 
+          - write memory
