@@ -1,0 +1,22 @@
+plugin: netbox.netbox.nb_inventory
+api_endpoint: http://10.0.0.100:8000
+token: "nbt_ZN6yyXZfp9NM.iFn2TjVHtKBrBqtWNtoN1qSHXHthRuKW3iRYhqsD"
+validate_certs: false
+
+#only include active devices
+device_query_filters:
+ - status: active
+
+#Group devices by role-creates group: device_roles_router
+group_by:
+ - device_roles
+
+#Map Netbox fields to ansible connection variables
+compose:
+ ansible_host: primary_ip4.address | ansible.utils.ipaddr("address")
+ ansible_network_os: platform.slug
+ ansible_user: custom_fields.ansible_user
+ ansible_password: custom_fields.ansible_password
+ ansible_connection: "'network_cli'"
+ ansible_become: "true"
+ ansible_become_method: enable

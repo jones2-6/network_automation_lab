@@ -1,0 +1,67 @@
+---
+- name: Configure data-plane interface on Cisco IOS routers using NetBox as source of truth 
+  hosts: device_roles_router 
+  gather_facts: false 
+  connection: ansible.netcommon.network_cli
+ 
+  vars: 
+    netbox_url:  "http://10.0.0.100:8000" 
+    netbox_token: "nbt_ZN6yyXZfp9NM.iFn2TjVHtKBrBqtWNtoN1qSHXHthRuKW3iRYhqsD" 
+
+  tasks: 
+    - name: Fetch all IP addresses assigned to [[ inventory_hostname ]] from netbox IPAM API
+      ansible.builtin.uri:
+        url: "{{ netbox_url }}/api/ipam/ip-addresses/?device={{ inventory_hostname }}&limit=200"
+        method: GET
+        headers:
+          Authorization: "Token {{ netbox_token }}"
+          Content-Type: "application/json"
+        validate_certs: false
+        return_content: true
+      register: netbox_ips
+      delegate_to: localhost
+
+    - name: Set fact nb_ips from netbox_ips json results
+      ansible.builtin.set_fact:
+        nb_ips: "{{ netbox_ips.json.results }}"
+
+    - name: Debug IP address list by looping over nb_ips showing address assigned interface name
+      ansible.builtin.debug:
+        msg: "IP: {{ item.address }} | Interface: {{ item.assigned_object.name | default ('unassigned') }}"
+      loop: "{{ nb_ips }}"
+      loop_control:
+        label: "{{ item.address }}"
+
+    - name: Configure IPV4 address on each interface using NetBox IPAM data on CISCO IOS
+      cisco.ios.ios_l3_interfaces:
+        config:
+          - name: "{{ item.assigned_object.name }}"
+            ipv4:
+              - address: "{{ item.address }}"
+        state: merged
+      loop: "{{ nb_ips }}"
+      when:
+        - item.assigned_object is defined
+        - item.assigned_object.name is defined
+        - item.assigned_object.name is search('^GigabitEthernet')
+        - item.family.value == 4
+      notify: Save IOS running config to startup config
+
+    - name: Set interface description and bring up data-plane interface using NetBox IPAM data on Cisco IOS
+      cisco.ios.ios_interfaces:
+        config:
+          - name: "{{ item.assigned_object.name }}"
+            description: "{{ item.assigned_object.description | default(item.assigned_object.name) }}"
+            enabled: true
+      loop: "{{ nb_ips }}"
+      when:
+        - item.assigned_object is defined
+        - item.assigned_object.name is defined
+        - item.assigned_object.name is search('^GigabitEthernet') 
+      notify: Save IOS running config to startup config
+
+  handlers:
+    - name: Save IOS running config to startup config 
+      cisco.ios.ios_command:
+        commands:
+        - write memory
