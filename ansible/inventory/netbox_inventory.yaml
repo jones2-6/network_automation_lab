@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 plugin: netbox.netbox.nb_inventory
 api_endpoint: http://10.0.0.100:8000
 token: "nbt_ZN6yyXZfp9NM.iFn2TjVHtKBrBqtWNtoN1qSHXHthRuKW3iRYhqsD"
@@ -21,31 +20,5 @@ compose:
  ansible_connection: "'network_cli'"
  ansible_become: "true"
  ansible_become_method: enable
-=======
 
-plugin: netbox.netbox.nb_inventory
-api_endpoint: http://10.0.0.100:8000
-token: nbt_0SM00Ct62itA.B9QryWlWd4u2AXl4tEO3sOnF16DDLuQ8Rdt4DbVL
-validate_certs: false
 
-#Only Include Active Devices
-device_query_filters:
-  - status: active
-
-# Group devices by role - creates group: device_roles_router
-
-group_by:
-  - device_roles
-
-# Map Netbox fields to Ansible connection variables
-
-compose:
-  ansible_host: primary_ip4.address | ansible.utils.ipaddr("address")
-  ansible_network_os: platform.slug
-  ansible_user: custom_fields.ansible_user
-  ansible_password: custom_fields.ansible_password
-  ansible_connection: "'network_cli'"
-  ansible_become: "true"
-  ansible_become_method: "'enable'"
-
->>>>>>> 51920d909a9887a6a4f4b167d1b2358c63bb2198

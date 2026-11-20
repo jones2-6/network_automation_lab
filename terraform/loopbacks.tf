@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 51920d909a9887a6a4f4b167d1b2358c63bb2198
 resource "iosxe_interface_loopback" "R1_lo0" {
   provider          = iosxe.R1
   name              = 0
@@ -22,8 +18,4 @@ resource "iosxe_interface_loopback" "R3_lo0" {
   ipv4_address      = local.R3_lo_ip
   ipv4_address_mask = "255.255.255.255"
 }
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 51920d909a9887a6a4f4b167d1b2358c63bb2198

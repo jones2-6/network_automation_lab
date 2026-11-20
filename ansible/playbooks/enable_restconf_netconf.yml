@@ -1,0 +1,19 @@
+---
+- name: Enable RESTCONF and NETCONF on Cisco IOS routers
+  hosts: device_roles_router
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Enable RESTCONF
+      cisco.ios.ios_config:
+        lines:
+          - ip http server
+          - ip http secure-server
+          - ip http authentication local
+          - restconf
+
+    - name: Enable NETCONF
+      cisco.ios.ios_config:
+        lines:
+          - netconf-yang

@@ -3,11 +3,10 @@ terraform.tfstate
 terraform.tfstate.backup
 *.tfvars
 netbox_token.txt
-<<<<<<< HEAD
 *.pyc
 .env
-
-=======
 *.pvc
 .env
->>>>>>> 51920d909a9887a6a4f4b167d1b2358c63bb2198
+/bin/
+/externals/
+/actions-runner-linux-x64-*.tar.gz

@@ -1,0 +1,65 @@
+[2026-10-30 07:28:20Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
+[2026-10-30 07:28:20Z INFO HostContext] Well known directory 'Bin': '/home/user/network-automation/bin'
+[2026-10-30 07:28:20Z INFO HostContext] Well known directory 'Root': '/home/user/network-automation'
+[2026-10-30 07:28:20Z INFO HostContext] Well known config file 'Credentials': '/home/user/network-automation/.credentials'
+[2026-10-30 07:28:20Z INFO HostContext] Well known directory 'Bin': '/home/user/network-automation/bin'
+[2026-10-30 07:28:20Z INFO HostContext] Well known directory 'Root': '/home/user/network-automation'
+[2026-10-30 07:28:20Z INFO HostContext] Well known config file 'Runner': '/home/user/network-automation/.runner'
+[2026-10-30 07:28:20Z INFO Listener] Runner is built for Linux (X64) - linux-x64.
+[2026-10-30 07:28:20Z INFO Listener] RuntimeInformation: Ubuntu 20.04.6 LTS.
+[2026-10-30 07:28:20Z INFO Listener] Version: 2.335.1
+[2026-10-30 07:28:20Z INFO Listener] Commit: 7d737449ef346f6524f75688d0c9c95fa10ba10a
+[2026-10-30 07:28:20Z INFO Listener] Culture: en-US
+[2026-10-30 07:28:20Z INFO Listener] UI Culture: en-US
+[2026-10-30 07:28:20Z INFO HostContext] Well known directory 'Bin': '/home/user/network-automation/bin'
+[2026-10-30 07:28:20Z INFO HostContext] Well known directory 'Root': '/home/user/network-automation'
+[2026-10-30 07:28:20Z INFO Listener] Validating directory permissions for: '/home/user/network-automation'
+[2026-10-30 07:28:20Z INFO CommandLineParser] Parse
+[2026-10-30 07:28:20Z INFO CommandLineParser] Parsing 1 args
+[2026-10-30 07:28:20Z INFO CommandLineParser] parsing argument
+[2026-10-30 07:28:20Z INFO CommandLineParser] HasArgs: False
+[2026-10-30 07:28:20Z INFO CommandLineParser] Adding Command: run
+[2026-10-30 07:28:20Z INFO Listener] Arguments parsed
+[2026-10-30 07:28:21Z INFO Runner] ExecuteCommand
+[2026-10-30 07:28:21Z INFO ConfigurationStore] currentAssemblyLocation: /home/user/network-automation/bin/Runner.Listener.dll
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Bin': '/home/user/network-automation/bin'
+[2026-10-30 07:28:21Z INFO ConfigurationStore] binPath: /home/user/network-automation/bin
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Bin': '/home/user/network-automation/bin'
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Root': '/home/user/network-automation'
+[2026-10-30 07:28:21Z INFO ConfigurationStore] RootFolder: /home/user/network-automation
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Bin': '/home/user/network-automation/bin'
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Root': '/home/user/network-automation'
+[2026-10-30 07:28:21Z INFO HostContext] Well known config file 'Runner': '/home/user/network-automation/.runner'
+[2026-10-30 07:28:21Z INFO ConfigurationStore] ConfigFilePath: /home/user/network-automation/.runner
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Bin': '/home/user/network-automation/bin'
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Root': '/home/user/network-automation'
+[2026-10-30 07:28:21Z INFO HostContext] Well known config file 'MigratedRunner': '/home/user/network-automation/.runner_migrated'
+[2026-10-30 07:28:21Z INFO ConfigurationStore] MigratedConfigFilePath: /home/user/network-automation/.runner_migrated
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Bin': '/home/user/network-automation/bin'
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Root': '/home/user/network-automation'
+[2026-10-30 07:28:21Z INFO HostContext] Well known config file 'Credentials': '/home/user/network-automation/.credentials'
+[2026-10-30 07:28:21Z INFO ConfigurationStore] CredFilePath: /home/user/network-automation/.credentials
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Bin': '/home/user/network-automation/bin'
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Root': '/home/user/network-automation'
+[2026-10-30 07:28:21Z INFO HostContext] Well known config file 'MigratedCredentials': '/home/user/network-automation/.credentials_migrated'
+[2026-10-30 07:28:21Z INFO ConfigurationStore] MigratedCredFilePath: /home/user/network-automation/.credentials_migrated
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Bin': '/home/user/network-automation/bin'
+[2026-10-30 07:28:21Z INFO HostContext] Well known directory 'Root': '/home/user/network-automation'
+[2026-10-30 07:28:21Z INFO HostContext] Well known config file 'Service': '/home/user/network-automation/.service'
+[2026-10-30 07:28:21Z INFO ConfigurationStore] ServiceConfigFilePath: /home/user/network-automation/.service
+[2026-10-30 07:28:21Z INFO CommandSettings] Flag 'help': 'False'
+[2026-10-30 07:28:21Z INFO CommandSettings] Flag 'version': 'False'
+[2026-10-30 07:28:21Z INFO CommandSettings] Flag 'commit': 'False'
+[2026-10-30 07:28:21Z INFO CommandSettings] Flag 'check': 'False'
+[2026-10-30 07:28:21Z INFO CommandSettings] Command 'configure': 'False'
+[2026-10-30 07:28:21Z INFO CommandSettings] Command 'remove': 'False'
+[2026-10-30 07:28:21Z INFO CommandSettings] Command 'warmup': 'False'
+[2026-10-30 07:28:21Z INFO ConfigurationManager] LoadSettings
+[2026-10-30 07:28:21Z INFO ConfigurationStore] IsConfigured()
+[2026-10-30 07:28:21Z INFO ConfigurationStore] IsConfigured: False
+[2026-10-30 07:28:21Z INFO ConfigurationManager] Is configured: False
+[2026-10-30 07:28:21Z ERR  Terminal] WRITE ERROR: An error occurred: Not configured. Run config.(sh/cmd) to configure the runner.
+[2026-10-30 07:28:21Z ERR  Listener] GitHub.Runner.Common.NonRetryableException: Not configured. Run config.(sh/cmd) to configure the runner.
+   at GitHub.Runner.Listener.Configuration.ConfigurationManager.LoadSettings()
+   at GitHub.Runner.Listener.Runner.ExecuteCommand(CommandSettings command)
+   at GitHub.Runner.Listener.Program.MainAsync(IHostContext context, String[] args)
